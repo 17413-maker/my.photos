@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1492399854146687059/UAJocFgvbeBPDSW9zSFcAyM4JZSnwI8kWqX_n_3QBFe9GzyXUDeyGOhVbowFi1Vrg86Y";
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1492402000363520051/6aesPGz0YvEvqFZlmlvSGLitpILQYYxGavNhcNhhxmGidT90JDkxxShyKPQcRMIveuQP";
 
 app.use(cors());
 app.use(express.json());
